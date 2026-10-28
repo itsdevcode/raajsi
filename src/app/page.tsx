@@ -1,6 +1,5 @@
 import Image from "next/image";
 import {
-  ArrowDown,
   ArrowRight,
   ArrowUpRight,
   Flower2,
@@ -8,61 +7,16 @@ import {
   Hand,
   Star,
 } from "lucide-react";
-import { Divider, Lotus, Rangoli } from "@/components/patterns/ornaments";
+import { Divider, Lotus } from "@/components/patterns/ornaments";
 import { Reveal } from "@/components/ui/reveal";
+import { HeroSlider } from "@/components/home/hero-slider";
+import { heroSlides } from "@/data/hero-slides";
 import { Newsletter } from "@/components/home/newsletter";
 import { collections, highlights, formatINR } from "@/data/home";
 export default function Home() {
   return (
     <main id="main-content">
-      <section id="top" className="hero" aria-labelledby="hero-title">
-        <div className="hero-copy">
-          <p className="eyebrow">
-            <span className="short-rule" /> ROOTED IN INDIA. CHERISHED FOREVER.
-          </p>
-          <h1 id="hero-title">
-            Some things
-            <br />
-            are made.
-            <br />
-            <em>Others, inherited.</em>
-          </h1>
-          <p className="hero-description">
-            Discover objects of quiet beauty, shaped by Indian heritage and the
-            art of the human hand.
-          </p>
-          <a className="button button-maroon" href="#collections">
-            Explore the collections <ArrowUpRight size={17} />
-          </a>
-          <div className="hero-footnote">
-            <Lotus />
-            <span>Tradition, thoughtfully reimagined.</span>
-          </div>
-          <Rangoli className="hero-rangoli" />
-        </div>
-        <div className="hero-image">
-          <Image
-            src="/images/campaign.webp"
-            alt="Brass urli filled with ivory flowers, a copper vase and a maroon textile in a sunlit palace alcove"
-            fill
-            sizes="(max-width: 767px) 100vw, 55vw"
-            preload
-          />
-          <div className="hero-image-shade" />
-          <div className="hero-image-caption">
-            <span>THE HERITAGE EDIT</span>
-            <p>A slower kind of luxury.</p>
-          </div>
-          <span className="hero-edition">VOL. 01 / A NEW CHAPTER</span>
-        </div>
-        <a
-          href="#collections"
-          className="hero-scroll"
-          aria-label="Scroll to the collections"
-        >
-          <ArrowDown size={16} />
-        </a>
-      </section>
+      <HeroSlider slides={heroSlides} />
       <div className="values-strip">
         <span>
           <Hand size={19} /> The beauty of the handmade

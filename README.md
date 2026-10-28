@@ -55,6 +55,16 @@ scripts/                 Static preview server and asset preparation
 
 Server Components are the default; only navigation, newsletter state and Motion reveal wrappers are client components. Styling uses a single palette and common component classes so future pages can reuse the visual system. See [asset provenance](docs/assets.md) for the image-generation prompt, sources and font licensing.
 
+## Typography and hero refinement
+
+The homepage retains its original split composition and now cycles through three editorial stories. A focused client component receives typed local slide data while the page remains a Server Component. No carousel dependency or backend is added.
+
+The slider advances every 6.5 seconds, with previous/next controls, direct indicators and an explicit pause button. Hover, keyboard focus and document visibility suspend rotation; resuming starts a fresh interval. Reduced-motion preference disables autoplay and crossfades. Manual controls announce the selected story, while inactive slides are hidden from assistive technology and keyboard navigation. Motion preference uses a hydration-safe browser subscription.
+
+Typography uses shared role tokens: 16px body/input/price text, 14px navigation and buttons, 13px secondary text, 12px labels, fluid 22–28px product titles, 40–68px section headings and 48–92px hero headings. Breakpoint-specific tiny fonts have been removed. Text wraps naturally, with adjusted header spacing, mobile announcement wrapping and reserved hero height.
+
+See [refinement verification and before/after screenshots](docs/typography-hero-slider/README.md). The extended suite includes autoplay, pause conditions, keyboard controls, reduced motion, font minimums and all-slide layout stability.
+
 ## Next milestones
 
 1. **Design system and homepage** — current PR.

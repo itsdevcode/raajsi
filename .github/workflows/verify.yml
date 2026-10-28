@@ -30,4 +30,5 @@ jobs:
             playwright-report/
             test-results/
             docs/homepage-*.png
+            docs/typography-hero-slider/*.png
           retention-days: 14

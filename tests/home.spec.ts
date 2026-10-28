@@ -60,7 +60,12 @@ for (const width of [360, 390, 768, 1024, 1440, 1920]) {
     page.on("response", (response) => {
       if (response.status() >= 400) failed.push(response.url());
     });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    const pageErrors: string[] = [];
+    page.on("pageerror", (error) => pageErrors.push(error.message));
     await page.goto("/");
+    // Focusing a control hydrates the interactive island before asset inspection.
+    await page.getByRole("button", { name: "Next slide", exact: true }).focus();
     await page.evaluate(async () => {
       await document.fonts.ready;
       const images = Array.from(document.images);
@@ -74,13 +79,15 @@ for (const width of [360, 390, 768, 1024, 1440, 1920]) {
         () => document.documentElement.scrollWidth <= window.innerWidth,
       ),
     ).toBe(true);
-    expect(
-      await page.evaluate(() =>
-        Array.from(document.images).every(
-          (img) => img.complete && img.naturalWidth > 0,
+    await expect
+      .poll(() =>
+        page.evaluate(() =>
+          Array.from(document.images).every(
+            (img) => img.complete && img.naturalWidth > 0,
+          ),
         ),
-      ),
-    ).toBe(true);
+      )
+      .toBe(true);
     const typography = await page.evaluate(() => {
       const heading = document.querySelector("h1")!;
       const text = document.createRange();
@@ -105,14 +112,17 @@ for (const width of [360, 390, 768, 1024, 1440, 1920]) {
       );
     expect(brokenAnchors).toEqual([]);
     expect(failed).toEqual([]);
+    expect(pageErrors).toEqual([]);
     const accessibility = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
       .analyze();
     expect(accessibility.violations).toEqual([]);
     if (width === 390 || width === 1440) {
-      await page.screenshot({ path: `docs/homepage-${width}-top.png` });
       await page.screenshot({
-        path: `docs/homepage-${width}.png`,
+        path: `docs/typography-hero-slider/after-${width}-top.png`,
+      });
+      await page.screenshot({
+        path: `docs/typography-hero-slider/after-${width}.png`,
         fullPage: true,
       });
     }

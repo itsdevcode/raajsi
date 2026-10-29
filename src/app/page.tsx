@@ -11,7 +11,6 @@ import { Divider, Lotus } from "@/components/patterns/ornaments";
 import { Reveal } from "@/components/ui/reveal";
 import { HeroSlider } from "@/components/home/hero-slider";
 import { heroSlides } from "@/data/hero-slides";
-import { Newsletter } from "@/components/home/newsletter";
 import { collections, highlights, formatINR } from "@/data/home";
 export default function Home() {
   return (
@@ -277,7 +276,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <Newsletter />
     </main>
   );
 }
